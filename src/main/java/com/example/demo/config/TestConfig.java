@@ -9,18 +9,19 @@ import org.springframework.context.annotation.Profile;
 
 import com.example.demo.entities.User;
 import com.example.demo.repositories.UserRepository;
-
+//initial test profile 
 @Configuration
 @Profile("test")
 public class TestConfig implements CommandLineRunner{
 	
-	// database seeding
+	// database seeding test profile
 	
 	@Autowired
 	private UserRepository userRepository;
 
 	@Override
 	public void run(String... args) throws Exception {
+		
 		
 		
 		User u1 = new User(null, "Maria Brown", "maria@gmail.com", "988888888", "123456");
