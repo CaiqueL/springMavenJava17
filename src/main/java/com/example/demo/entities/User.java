@@ -1,17 +1,22 @@
 package com.example.demo.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
-@Table(name = "users")
+@Table(name = "tb_user")
 public class User implements Serializable{
 
 
@@ -25,6 +30,13 @@ public class User implements Serializable{
 	private String phone;
 	private String password;
 	
+	//jsonignore -> ignores the call back and prevents infinite looping between client ( that has an order list ) and order ( that has a client assiciation ) 
+	// aka lazy loading
+	 
+	@JsonIgnore
+	@OneToMany(mappedBy = "client")
+	private List<Order> orders = new ArrayList<>();
+	
 	public User() {
 		super();
 	}
@@ -36,6 +48,12 @@ public class User implements Serializable{
 		this.email = email;
 		this.phone = phone;
 		this.password = password;
+	}
+	
+	
+
+	public List<Order> getOrders() {
+		return orders;
 	}
 
 	public Long getId() {
